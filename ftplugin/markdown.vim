@@ -33,3 +33,10 @@ vnoremap <buffer> <localleader>[ <esc>`>a]()<esc>`<i[<esc>gv2l
 command! -nargs=? MarkerList call marker#MakeList('asterisk' ,<f-args>)
 
 command! -nargs=? MarkerL call marker#MakeList('asterisk' ,<f-args>)
+
+" Enable syntax folding.
+" For now, we leverage vim's default markdown support.
+" In the future, possibly reimplement folding for backwards compatibility.
+setlocal foldexpr=MarkdownFold()
+setlocal foldmethod=expr
+setlocal foldtext=MarkdownFoldText()
