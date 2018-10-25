@@ -1,22 +1,17 @@
-nnoremap <silent> <buffer> <localleader>* :call marker#Insert('ital')<cr>
-nnoremap <silent> <buffer> <localleader>` :call marker#Insert('code')<cr>
-nnoremap <silent> <buffer> <localleader>_ :call marker#Insert('under')<cr>
-nnoremap <silent> <buffer> <localleader>> :call marker#Prefix('quote')<cr>
-nnoremap <silent> <buffer> <localleader># :call marker#Prefix('head')<cr>
-nnoremap <silent> <buffer> <localleader>[ :call marker#Link(0)<cr>
-nnoremap <silent> <buffer> <localleader>! :call marker#Link(1)<cr>
+nnoremap <silent> <buffer> <localleader>* :call marker#Mark('ital')<cr>
+nnoremap <silent> <buffer> <localleader>` :call marker#Mark('code')<cr>
+nnoremap <silent> <buffer> <localleader>> :call marker#Mark('quote')<cr>
+nnoremap <silent> <buffer> <localleader># :call marker#Mark('head')<cr>
+nnoremap <silent> <buffer> <localleader>[ :call marker#Mark('link')<cr>
+nnoremap <silent> <buffer> <localleader>! :call marker#Mark('image')<cr>
 
-nnoremap <silent> <buffer> <localleader>i :call marker#Insert('ital')<cr>
-nnoremap <silent> <buffer> <localleader>b :call marker#Insert('bold')<cr>
-nnoremap <silent> <buffer> <localleader>c :call marker#Insert('code')<cr>
-nnoremap <silent> <buffer> <localleader>u :call marker#Insert('under')<cr>
-nnoremap <silent> <buffer> <localleader>h :call marker#Prefix('head')<cr>
-nnoremap <silent> <buffer> <localleader>q :call marker#Prefix('quote')<cr>
+nnoremap <silent> <buffer> <localleader>i :call marker#Mark('ital')<cr>
+nnoremap <silent> <buffer> <localleader>b :call marker#Mark('bold')<cr>
+nnoremap <silent> <buffer> <localleader>c :call marker#Mark('code')<cr>
+nnoremap <silent> <buffer> <localleader>h :call marker#Mark('head')<cr>
+nnoremap <silent> <buffer> <localleader>q :call marker#Mark('quote')<cr>
 
-nnoremap <silent> <buffer> <localleader>l :<C-U>call marker#MakeList('asterisk', v:count1)<cr>
-nnoremap <silent> <buffer> <localleader>+ :<C-U>call marker#MakeList('plus', v:count1)<cr>
-nnoremap <silent> <buffer> <localleader>- :<C-U>call marker#MakeList('dash', v:count1)<cr>
-nnoremap <silent> <buffer> <localleader>: :<C-U>call marker#MakeList('definition', v:count1)<cr>
+nnoremap <silent> <buffer> <localleader>l :<C-U>call marker#Mark('bullet', v:count1)<cr>
 
 nnoremap <buffer> <localleader>1 i#<esc>a<space>
 nnoremap <buffer> <localleader>2 2i#<esc>a<space>
@@ -30,9 +25,8 @@ vnoremap <buffer> <localleader>_ <esc>`>a_<esc>`<i_<esc>gv2l
 vnoremap <buffer> <localleader>` <esc>`>a`<esc>`<i`<esc>gv2l
 vnoremap <buffer> <localleader>[ <esc>`>a]()<esc>`<i[<esc>gv2l
 
-command! -nargs=? MarkerList call marker#MakeList('asterisk' ,<f-args>)
-
-command! -nargs=? MarkerL call marker#MakeList('asterisk' ,<f-args>)
+command! -nargs=? MarkerList call marker#Mark('bullet' ,<f-args>)
+command! -nargs=? MarkerL call marker#Mark('bullet' ,<f-args>)
 
 " Enable syntax folding.
 " For now, we leverage vim's default markdown support.
