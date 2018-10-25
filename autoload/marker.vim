@@ -7,6 +7,7 @@ let s:marker_marks.head       = ["#", "-", "="]
 let s:marker_marks.quote      = [">"]
 let s:marker_marks.bullet     = ["*", "1.", "-", "+"]
 let s:marker_marks.definition = [":"]
+let s:marker_marks.rule       = ["-", "*", "_"]
 
 " Set global variables to defaults if not set.
 function! s:SetGlobal(config, default)
@@ -54,6 +55,11 @@ function! s:Insert(mark) abort
   call setline(".", join(l:words))
 endfunction
 
+function! s:Triple(mark) abort
+  let l:trip = a:mark . a:mark . a:mark
+  call append(line("$"), [" ", l:trip, " "])
+endfunction
+
 function! s:Prefix(mark) abort
   let l:line = getline(".")
   let l:line = a:mark . " " . l:line
@@ -83,6 +89,7 @@ let s:marker_fs.bullet     = function("s:List")
 let s:marker_fs.definition = function("s:List")
 let s:marker_fs.link       = function("s:Link", [0])
 let s:marker_fs.image      = function("s:Link", [1])
+let s:marker_fs.rule       = function("s:Triple", [s:marker_marks.rule[g:marker_rule]])
 
 function! marker#Mark(mark, ...) abort
   if a:0 >= 1

@@ -10,7 +10,7 @@ nnoremap <silent> <buffer> <localleader>b :call marker#Mark('bold')<cr>
 nnoremap <silent> <buffer> <localleader>c :call marker#Mark('code')<cr>
 nnoremap <silent> <buffer> <localleader>h :call marker#Mark('head')<cr>
 nnoremap <silent> <buffer> <localleader>q :call marker#Mark('quote')<cr>
-
+nnoremap <silent> <buffer> <localleader>- :call marker#Mark('rule')<cr>
 nnoremap <silent> <buffer> <localleader>l :<C-U>call marker#Mark('bullet', v:count1)<cr>
 
 nnoremap <buffer> <localleader>1 i#<esc>a<space>
