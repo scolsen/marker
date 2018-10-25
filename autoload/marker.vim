@@ -7,7 +7,8 @@ let s:marker_marks.head       = ["#", "-", "="]
 let s:marker_marks.quote      = [">"]
 let s:marker_marks.bullet     = ["*", "1.", "-", "+"]
 let s:marker_marks.definition = [":"]
-let s:marker_marks.rule       = ["-", "*", "_"]
+let s:marker_marks.rule       = ["---", "***", "___"]
+let s:marker_marks.block      = ["```", "~~~"]
 
 " Set global variables to defaults if not set.
 function! s:SetGlobal(config, default)
@@ -56,8 +57,16 @@ function! s:Insert(mark) abort
 endfunction
 
 function! s:Triple(mark) abort
-  let l:trip = a:mark . a:mark . a:mark
-  call append(line("$"), [" ", l:trip, " "])
+  call append(line("$"), [" ", a:mark, " "])
+endfunction
+
+function! s:Block(mark, ...) abort
+  if a:0 >= 1 && strlen(a:1)
+    let l:str = a:mark . a:1 
+  else
+    let l:str = a:mark
+  endif
+  call append(line("$"), [" ", l:str, " ", a:mark])
 endfunction
 
 function! s:Prefix(mark) abort
@@ -90,6 +99,7 @@ let s:marker_fs.definition = function("s:List")
 let s:marker_fs.link       = function("s:Link", [0])
 let s:marker_fs.image      = function("s:Link", [1])
 let s:marker_fs.rule       = function("s:Triple", [s:marker_marks.rule[g:marker_rule]])
+let s:marker_fs.block      = function("s:Block", [s:marker_marks.block[g:marker_block]])
 
 function! marker#Mark(mark, ...) abort
   if a:0 >= 1

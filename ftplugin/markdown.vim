@@ -11,6 +11,7 @@ nnoremap <silent> <buffer> <localleader>c :call marker#Mark('code')<cr>
 nnoremap <silent> <buffer> <localleader>h :call marker#Mark('head')<cr>
 nnoremap <silent> <buffer> <localleader>q :call marker#Mark('quote')<cr>
 nnoremap <silent> <buffer> <localleader>- :call marker#Mark('rule')<cr>
+nnoremap <silent> <buffer> <localleader>~ :call marker#Mark('block')<cr>
 nnoremap <silent> <buffer> <localleader>l :<C-U>call marker#Mark('bullet', v:count1)<cr>
 
 nnoremap <buffer> <localleader>1 i#<esc>a<space>
@@ -27,6 +28,7 @@ vnoremap <buffer> <localleader>[ <esc>`>a]()<esc>`<i[<esc>gv2l
 
 command! -nargs=? MarkerList call marker#Mark('bullet' ,<f-args>)
 command! -nargs=? MarkerL call marker#Mark('bullet' ,<f-args>)
+command! -nargs=? MarkerBlock call marker#Mark('block' ,<f-args>)
 
 " Enable syntax folding.
 " For now, we leverage vim's default markdown support.
