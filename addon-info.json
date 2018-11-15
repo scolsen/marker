@@ -1,0 +1,8 @@
+{
+  "name": "marker",
+  "description": "Helpful bindings for editing markdown.",
+  "author": "Scott Olsen",
+  "dependencies": {
+    "maktaba": {"type": "git", "url": "git://github.com/google/maktaba"} 
+  }
+}

@@ -1,35 +1,28 @@
-" Supported Markdown syntax
-let s:marker_marks = {}
-let s:marker_marks.bold       = ["**", "__"]
-let s:marker_marks.ital       = ["*", "_"]
-let s:marker_marks.code       = ["`"]
-let s:marker_marks.head       = ["#", "-", "="]
-let s:marker_marks.quote      = [">"]
-let s:marker_marks.bullet     = ["*", "1.", "-", "+"]
-let s:marker_marks.definition = [":"]
-let s:marker_marks.rule       = ["---", "***", "___"]
-let s:marker_marks.block      = ["```", "~~~"]
+let s:plugin = maktaba#plugin#Get('marker')
 
-" Set global variables to defaults if not set.
-function! s:SetGlobal(config, default)
-  let g = "g:marker_" . a:config
-  if !exists(g)
-    exe "let " . g . "=" . a:default
-  elseif exists(g)
-    let val = echo g
-    if val > len(marker_marks[a:config])
-      exe "let " . g . "=" . a:default
-    endif
+let s:marker_fs            = {}
+let s:marker_fs.bold       = function("s:Insert", [s:plugin.Flag('bold')])
+let s:marker_fs.ital       = function("s:Insert", [s:plugin.Flag('ital')])
+let s:marker_fs.code       = function("s:Insert", [s:plugin.Flag('code')])
+let s:marker_fs.head       = function("s:Prefix", [s:plugin.Flag('head')])
+let s:marker_fs.quote      = function("s:Prefix", [s:plugin.Flag('quote')])
+let s:marker_fs.bullet     = function("s:List")
+let s:marker_fs.definition = function("s:List")
+let s:marker_fs.link       = function("s:Link", [0])
+let s:marker_fs.image      = function("s:Link", [1])
+let s:marker_fs.rule       = function("s:Triple", [s:plugin.Flag('rule')])
+let s:marker_fs.block      = function("s:Block", [s:plugin.Flag('block')])
+
+function! marker#Mark(mark, ...) abort
+  if a:0 >= 1
+    call s:marker_fs[a:mark](a:1)
+  else
+    call s:marker_fs[a:mark]()
   endif
 endfunction
 
-" Set default values.
-for item in keys(s:marker_marks)
-  call s:SetGlobal(item, 0)
-endfor
-
 function! s:List(n) abort 
-  let l:bullet = s:marker_marks.bullet[g:marker_bullet]
+  let l:bullet = s:plugin.Flag('bullet')
   let l:lst = []
   let l:n = str2nr(a:n)
   while l:n != 0
@@ -86,26 +79,5 @@ function! s:Link(image) abort
   let l:idx = match(l:words, l:word)
   let l:words[l:idx] = l:marked_word
   call setline(".", join(l:words))
-endfunction
-
-let s:marker_fs            = {}
-let s:marker_fs.bold       = function("s:Insert", [s:marker_marks.bold[g:marker_bold]])
-let s:marker_fs.ital       = function("s:Insert", [s:marker_marks.ital[g:marker_ital]])
-let s:marker_fs.code       = function("s:Insert", [s:marker_marks.code[g:marker_code]])
-let s:marker_fs.head       = function("s:Prefix", [s:marker_marks.head[g:marker_head]])
-let s:marker_fs.quote      = function("s:Prefix", [s:marker_marks.quote[g:marker_quote]])
-let s:marker_fs.bullet     = function("s:List")
-let s:marker_fs.definition = function("s:List")
-let s:marker_fs.link       = function("s:Link", [0])
-let s:marker_fs.image      = function("s:Link", [1])
-let s:marker_fs.rule       = function("s:Triple", [s:marker_marks.rule[g:marker_rule]])
-let s:marker_fs.block      = function("s:Block", [s:marker_marks.block[g:marker_block]])
-
-function! marker#Mark(mark, ...) abort
-  if a:0 >= 1
-    call s:marker_fs[a:mark](a:1)
-  else
-    call s:marker_fs[a:mark]()
-  endif
 endfunction
 
