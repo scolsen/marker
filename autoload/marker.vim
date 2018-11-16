@@ -1,17 +1,17 @@
 let s:plugin = maktaba#plugin#Get('marker')
 
 let s:marker_fs            = {}
-let s:marker_fs.bold       = function("s:Insert", [s:plugin.Flag('bold')])
-let s:marker_fs.ital       = function("s:Insert", [s:plugin.Flag('ital')])
-let s:marker_fs.code       = function("s:Insert", [s:plugin.Flag('code')])
-let s:marker_fs.head       = function("s:Prefix", [s:plugin.Flag('head')])
-let s:marker_fs.quote      = function("s:Prefix", [s:plugin.Flag('quote')])
+let s:marker_fs.bold       = function("s:Insert", [s:plugin.Flag('active[bold]')])
+let s:marker_fs.ital       = function("s:Insert", [s:plugin.Flag('active[ital]')])
+let s:marker_fs.code       = function("s:Insert", [s:plugin.Flag('active[code]')])
+let s:marker_fs.head       = function("s:Prefix", [s:plugin.Flag('actie[head]')])
+let s:marker_fs.quote      = function("s:Prefix", [s:plugin.Flag('active[quote]')])
 let s:marker_fs.bullet     = function("s:List")
 let s:marker_fs.definition = function("s:List")
 let s:marker_fs.link       = function("s:Link", [0])
 let s:marker_fs.image      = function("s:Link", [1])
-let s:marker_fs.rule       = function("s:Triple", [s:plugin.Flag('rule')])
-let s:marker_fs.block      = function("s:Block", [s:plugin.Flag('block')])
+let s:marker_fs.rule       = function("s:Triple", [s:plugin.Flag('active[rule]')])
+let s:marker_fs.block      = function("s:Block", [s:plugin.Flag('active[block]')])
 
 function! marker#Mark(mark, ...) abort
   if a:0 >= 1
